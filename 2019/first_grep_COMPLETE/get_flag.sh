@@ -1,0 +1,1 @@
+curl -s https://2019shell1.picoctf.com/static/3f6065eec2d3ed644932ada577a74334/file | grep -oE picoCTF{.*}
