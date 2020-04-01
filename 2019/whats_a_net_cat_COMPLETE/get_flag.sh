@@ -1,0 +1,1 @@
+nc 2019shell1.picoctf.com 32225 | grep pico

@@ -1,0 +1,3 @@
+connect to the shell server
+run the command: grep -vIr "\x00" -- . | grep pico
+done
