@@ -1,1 +1,0 @@
-ssh JaydelasCuevas@2019shell1.picoctf.com

@@ -1,0 +1,1 @@
+picoCTF{digital_plumb3r_4e7a5813}
