@@ -4,12 +4,19 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-    {
-        "type": "java",
-        "name": "Java Debug",
-        "request": "launch",
-        "mainClass": ""
-    },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - VaultDoor4",
+            "request": "launch",
+            "mainClass": "VaultDoor4",
+            "projectName": "2019_2abc340d"
+        },
+        {
+            "type": "java",
+            "name": "Java Debug",
+            "request": "launch",
+            "mainClass": ""
+        },
         {
             "name": "Python: Current File",
             "type": "python",
