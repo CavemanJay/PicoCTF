@@ -1,16 +1,17 @@
 #!/usr/bin/python3
-import os
-link = "https://2019shell1.picoctf.com/problem/21519/"
-js_link = link + "myjs.js"
-css_link = link+"mycss.css"
+def read_file(path):
+    with open(path) as file:
+        return file.read()
 
-part_one = os.popen(F"curl -s {link} | grep -oE pico.*").read().split(" ")[0]
 
-part_two = os.popen(F"curl -s {css_link} | tail -n 1").read()
-part_two = part_two[part_two.find("flag:")+5:].split(" ")[1]
+index_file = './site/index.html'
+js_file = './site/myjs.js'
+css_file = './site/mycss.css'
 
-part_three = os.popen(F"curl -s {js_link} | tail -n 1").read()
-part_three = part_three[part_three.find("flag:")+5:].split(" ")[1]
+part_one = [line for line in read_file(
+    index_file).split() if line.startswith('pico')][0]
 
-flag = part_one+part_two+part_three
-print(flag)
+part_two = read_file(css_file).splitlines()[-1].split()[-2]
+part_three = read_file(js_file).splitlines()[-1].split()[-2]
+
+print(part_one+part_two + part_three)
