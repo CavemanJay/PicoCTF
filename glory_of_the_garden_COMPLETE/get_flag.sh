@@ -1,1 +1,0 @@
-curl -s https://2019shell1.picoctf.com/static/438c667542717e152254bb4ae9297eb1/garden.jpg | strings | grep -oE picoCTF{.*}
