@@ -1,1 +1,1 @@
-curl -s https://2019shell1.picoctf.com/static/bf8a92d30f7a7f2a790accce80ba6f62/strings | strings | grep pico
+strings strings | grep pico
