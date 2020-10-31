@@ -21,6 +21,7 @@ def shift_characters(text: str, shift: int):
 
 
 ciphertext = ciphertext.split("{")[1].replace("}", "")
-# possibilities = get_possible_shifts(ciphertext)
-flag = F"picoCTF{{{shift_characters(ciphertext, 14)}}}"
+possibilities = get_possible_shifts(ciphertext)
+
+flag = F"picoCTF{{{possibilities[-4]}}}"
 print(flag)
