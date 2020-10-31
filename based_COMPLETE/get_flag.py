@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-# command = nc 2019shell1.picoctf.com 28758
+from pwn import remote, context
+import re
 
 
 def convert_binary_to_word(binary: str):
@@ -22,11 +23,34 @@ def convert_hex_to_word(hex: str):
     return bytes.fromhex(hex).decode('utf-8')
 
 
-binary = "01100110 01100001 01101100 01100011 01101111 01101110"
-print(convert_binary_to_word(binary))
+def get_encoded_from_prompt(prompt: str):
+    target = re.findall('the .* as a word',
+                        prompt)[0].replace('the ', "").replace("as a word", "").strip()
 
-octal = "164 141 142 154 145"
-print(convert_octal_to_word(octal))
+    return target
 
-hex = "6c616d70"
-print(convert_hex_to_word(hex))
+
+host, port = "jupiter.challenges.picoctf.org", 29956
+
+context.log_level = 100
+
+r = remote(host, port)
+prompt = r.recvuntil('Input:').decode().splitlines()[2]
+
+binary_word = get_encoded_from_prompt(prompt)
+word = convert_binary_to_word(binary_word)
+r.sendline(word)
+
+
+prompt = r.recvuntil("Input:").decode().splitlines()[1]
+octal_word = get_encoded_from_prompt(prompt)
+
+r.sendline(convert_octal_to_word(octal_word))
+
+prompt = r.recvuntil("Input:").decode().splitlines()[1]
+hex_word = get_encoded_from_prompt(prompt)
+r.sendline(convert_hex_to_word(hex_word))
+
+print(re.findall('picoCTF{.*}', r.recvall().decode())[0])
+
+r.close()
