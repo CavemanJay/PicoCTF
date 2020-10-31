@@ -1,1 +1,4 @@
-eog https://2019shell1.picoctf.com/static/45886ed4b6d5d1dc74c4944fcf4b4041/flag.txt
+# eog https://jupiter.challenges.picoctf.org/static/e7e5d188621ee705ceeb0452525412ef/flag.txt
+# feh https://jupiter.challenges.picoctf.org/static/e7e5d188621ee705ceeb0452525412ef/flag.txt
+
+tesseract flag.txt out -l eng && cat out.txt | head -n 1 && rm out.txt
