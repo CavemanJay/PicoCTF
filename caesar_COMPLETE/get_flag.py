@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 import os
-ciphertext = os.popen(
-    "curl -s https://2019shell1.picoctf.com/static/16895b37d67ca673cc69c4d096444bfb/ciphertext").read()
+ciphertext = open("ciphertext").read()
 
 
 def get_possible_shifts(ciphertext):
