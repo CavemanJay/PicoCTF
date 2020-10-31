@@ -2,14 +2,16 @@
 import os
 from collections import namedtuple
 from operator import attrgetter
+from pprint import pprint
+host = "https://jupiter.challenges.picoctf.org/problem/17682/"
 src = os.popen(
-    "curl -s https://2019shell1.picoctf.com/problem/49886/ | head -n 20 | tail -n 8").read()
+    "curl -s {} | head -n 20 | tail -n 8".format(host)).read()
+
 lines = []
-for x, line in enumerate(src.split("\n")):
+for line in src.split("\n"):
     lines.append(line.lstrip())
 
 FlagPart = namedtuple('FlagPart', ['index', 'part'])
-
 
 def get_index(line: str):
     star_index = line.find("*")
