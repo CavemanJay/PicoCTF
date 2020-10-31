@@ -2,8 +2,7 @@
 import os
 from collections import namedtuple
 from operator import attrgetter
-src = os.popen(
-    "curl -s https://2019shell1.picoctf.com/static/12b1d6a2eeccfb9e0ea1e5a82202c9f3/VaultDoor1.java").read()
+src = open("VaultDoor1.java").read()
 src = src[src.find("checkPassword(String pass"):].split("\n")
 src.pop(0)
 src.pop(33)
