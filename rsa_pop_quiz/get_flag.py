@@ -1,22 +1,79 @@
 #!/usr/bin/python3
-# command = nc 2019shell1.picoctf.com 30962
+
+from math import gcd
+
+from pwn import remote, context
+import re
 
 
 def compute_n(p: int, q: int):
-    print(p * q)
+    return str(p * q)
 
 
 def compute_q(p: int, n: int):
-    print(n/p)
+    return str(int(n/p))
 
 # totient of n: https://www.dcode.fr/euler-totient
 
 
 def encrypt(m: int, e: int, n: int):
     Me = m**e
-    print(Me % n)
+    return Me % n
 
 
-# compute_n(66347, 12611)
-encrypt(6357294171489311547190987615544575133581967886499484091352661406414044440475205342882841236357665973431462491355089413710392273380203038793241564304774271529108729717, 3,
-        29129463609326322559521123136222078780585451208149138547799121083622333250646678767769126248182207478527881025116332742616201890576280859777513414460842754045651093593251726785499360828237897586278068419875517543013545369871704159718105354690802726645710699029936754265654381929650494383622583174075805797766685192325859982797796060391271817578087472948205626257717479858369754502615173773514087437504532994142632207906501079835037052797306690891600559321673928943158514646572885986881016569647357891598545880304236145548059520898133142087545369179876065657214225826997676844000054327141666320553082128424707948750331)
+def get_value(val, prompt):
+    return int(re.findall(val + ' : .*', prompt)[0].split()[-1])
+
+
+def is_coprime(x, y):
+    return gcd(x, y) == 1
+
+# https://www.w3resource.com/python-exercises/basic/python-basic-1-exercise-120.php
+
+
+def totient(n):
+    amount = 0
+    for k in range(1, n + 1):
+        print(f'{k} of {n}')
+        if gcd(n, k) == 1:
+            amount += 1
+    return amount
+
+
+host, port = "jupiter.challenges.picoctf.org", 1981
+
+r = remote(host, port)
+
+prompt = r.recvuntil("IS THIS POSSIBLE").decode()
+r.sendline('y')
+
+q = get_value('q', prompt)
+p = get_value('p', prompt)
+
+
+r.sendline(compute_n(p, q))
+
+prompt = r.recvuntil("IS THIS POSSIBLE").decode()
+
+p = get_value('p', prompt)
+n = get_value('n', prompt)
+
+r.sendline('y')
+q = compute_q(p, n)
+
+r.sendline(q)
+
+r.recvuntil("IS THIS POSSIBLE")
+r.sendline('n')
+
+prompt = r.recvuntil("IS THIS POSSIBLE").decode()
+
+p = get_value('p', prompt)
+q = get_value('q', prompt)
+
+n = compute_n(p, q)
+t = totient(int(n))
+print(t)
+
+r.interactive()
+r.close()
