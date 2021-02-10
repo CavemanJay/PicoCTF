@@ -1,0 +1,1 @@
+python3 ape.py 2>&1 | grep -oE "picoCTF{.*}"
