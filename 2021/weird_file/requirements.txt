@@ -1,0 +1,10 @@
+cffi==1.14.5
+colorclass==2.2.0
+cryptography==3.4.6
+easygui==0.98.2
+msoffcrypto-tool==4.11.0
+olefile==0.46
+oletools==0.56
+pcodedmp==1.2.6
+pycparser==2.20
+pyparsing==2.4.7
